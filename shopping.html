@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>shopping.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+    <script type="text/javascript" language="javascript">
+    //遍历所有的checkbox,然后重新计算总价
+    var number=0;
+    var total=0;
+    var hcheck=document.getElementsByName("fruit");
+    var numcheck=document.getElementsByName("num");
+     function jisuan(obj){
+     total=0;
+     for(var i=0;i<hcheck.length;i++){
+          if(hcheck[i].checked){
+         // window.alert(total);
+         
+         total+=parseFloat(hcheck[i].value)*parseInt(numcheck[i].value);
+         //number=parseInt(num.value);
+        // window.alert(num.value);
+         //total*=number;
+         
+        }
+      }
+     // window.alert(total);
+      span1.innerText=total+"元";
+     }
+     function judgekeydown(e,obj){
+      
+       if(e.keyCode<48||e.keyCode>57)
+       {       
+         window.alert("请重新输入");
+         return false;
+       }
+       if(obj.value==""&&e.keyCode==48){
+       window.alert("不能为0");
+       obj.value=1;
+         return false;
+         
+       }
+     }
+     
+     function judgekeyup(e){
+       var i=0;//感觉是因为没有写i=0,所以if才不停地出错             
+       total=0;
+      // i=0;
+       if(hcheck[i].checked){
+          for( i=0;i<hcheck.length;i++){  
+         // window.alert(parseFloat(hcheck[i].value));
+        // window.alert(parseInt(numcheck[i].value));
+         //因为响应的事件为键盘按下，来不及采集数据
+         total+=parseFloat(hcheck[i].value)*parseInt(numcheck[i].value);      
+             }
+           span1.innerText=total+"元";
+          }          
+           
+     }
+     
+    function changecurcor(obj){
+     obj.style.cursor="hand";
+    }
+    
+    function minusnumber(){
+       var i=0;//感觉是因为没有写i=0,所以if才不停地出错             
+       total=0;
+      // i=0;
+        if(parseInt(numcheck[i].value)==1){
+         return false;
+        }else{
+        numcheck[i].value=parseInt(numcheck[i].value)-1;
+        }
+       if(hcheck[i].checked){
+          for( i=0;i<hcheck.length;i++){  
+         // window.alert(parseFloat(hcheck[i].value));
+        // window.alert(parseInt(numcheck[i].value));
+         //因为响应的事件为键盘按下，来不及采集数据
+         total+=parseFloat(hcheck[i].value)*parseInt(numcheck[i].value);      
+             }
+           span1.innerText=total+"元";
+          }          
+    }
+    
+    function plusnumber(){
+       var i=0;//感觉是因为没有写i=0,所以if才不停地出错             
+       total=0;
+      // i=0;
+       
+        numcheck[i].value=parseInt(numcheck[i].value)+1;
+        
+       if(hcheck[i].checked){
+          for( i=0;i<hcheck.length;i++){  
+         // window.alert(parseFloat(hcheck[i].value));
+        // window.alert(parseInt(numcheck[i].value));
+         //因为响应的事件为键盘按下，来不及采集数据
+         total+=parseFloat(hcheck[i].value)*parseInt(numcheck[i].value);      
+             }
+           span1.innerText=total+"元";
+          }      
+    }
+    </script>
+
+  </head>
+  
+  <body>
+   <h1>购物清单</h1>
+   <input type="checkbox" name="fruit" value="10" onclick="jisuan(this)"/>苹果：10元 数量：<span onclick="return minusnumber()" onmouseover="changecurcor(this)" style="border:2px solid green;">&nbsp;-&nbsp;</span><input style="width:30px" name="num" type="text" onkeyup="judgekeyup(event)" onkeydown="return judgekeydown(event,this)" value="1"/><span onmouseover="changecurcor(this)" style="border:2px solid green;" onclick="plusnumber()">&nbsp;+&nbsp;</span><br/>
+     <input type="checkbox" name="fruit" value="20" onclick="jisuan(this)"/>香蕉：20元 数量：<input style="width:30px" name="num" type="text" onkeyup="judgekeyup(event)" onkeydown="return judgekeydown(event)" value="1"/><br/>
+       <input type="checkbox" name="fruit" value="30" onclick="jisuan(this)"/>橘子：30元 数量：<input style="width:30px" name="num" type="text" onkeyup="judgekeyup(event)" onkeydown="return judgekeydown(event)" value="1"/><br/>
+         <input type="checkbox" name="fruit" value="40" onclick="jisuan(this)"/>梨子：40元 数量：<input style="width:30px" name="num" type="text" onkeyup="judgekeyup(event)" onkeydown="return judgekeydown(event)" value="1"/><br/>
+           <input type="checkbox" name="fruit" value="50" onclick="jisuan(this)"/>哈密瓜：50元 数量：<input style="width:30px" name="num" type="text" onkeyup="judgekeyup(event)" onkeydown="return judgekeydown(event)" value="1"/><br/>
+           总价：<span id="span1">0元</span>
+  </body>
+</html>
