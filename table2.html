@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>table2.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+ <script type="text/javascript" language="javascript">
+  var tt=0;
+  var num=0;
+ function addHero(){
+  var num=0;//为什么不能清零
+  //window.alert(num);
+  
+ //遍历整个表格,判断重复
+ for(var i=0;i<table1.rows.length;i++){
+   var myrow=table1.rows[i];
+   if(myrow.cells[0].innerText==number.value){//少写了innerText
+    window.alert("编号不能重复");
+    return;
+   }
+   }
+  
+   //按顺序添加好汉,通过设标志位来决定怎么添加好汉
+	  for(var j=1;j<table1.rows.length;j++){//这块的变量不应该用i，
+	   var myrow=table1.rows[j];
+	       //按顺序添加好汉
+	   var num1=parseInt(number.value);
+	   var num2=parseInt(myrow.cells[0].innerText);
+		   if(num1>num2){
+		    window.alert("设置标志位00的地方");
+		    flag=0;    
+		   }else{   
+		    flag=1; 
+		    tt=j;
+		    num++;
+		    window.alert(num+"设置标志位11的地方");//不科学啊，不满足这个条件为什么也会近循环        
+		   }
+	 }
+ 
+ 
+ //正常顺序，直接加在结尾
+  if(flag==0){
+     window.alert(num+"放在末尾");
+     var mytablerow=table1.insertRow(table1.rows.length);
+      mytablerow.insertCell(0).innerText=number.value;
+      mytablerow.insertCell(1).innerText=username.value;
+      mytablerow.insertCell(2).innerText=nickname.value;
+  }else{
+	   if(num==1){	
+	    window.alert(num+"放在最后一个数之前");    
+	     var mytablerow=table1.insertRow(tt);
+	      mytablerow.insertCell(0).innerText=number.value;
+	      mytablerow.insertCell(1).innerText=username.value;
+	      mytablerow.insertCell(2).innerText=nickname.value;
+	     // num=0;
+	  }else{
+	     window.alert(num+"酌情处理");  
+	      var mytablerow=table1.insertRow(tt-num+1);
+	      mytablerow.insertCell(0).innerText=number.value;
+	      mytablerow.insertCell(1).innerText=username.value;
+	      mytablerow.insertCell(2).innerText=nickname.value;
+	     // num=0;
+	  }
+  }
+  
+ }
+  
+  //删除一整行
+ function shanchu(r){  
+   var i=r.parentNode.parentNode.rowIndex;//获取第几行
+   //window.alert("123");
+    document.getElementById("table1").deleteRow(i);
+   }
+   
+ //修改每一行
+ function modify(){
+    r=$("table1").rows.rowIndex;
+    var x=$("table1").rows[r].cells; //搞不懂为什么出错 
+    window.alert(x); 
+   //先让链接修改不显示，点击修改后显示确认按钮
+    document.getElementById("a1").style.display="none";
+    //创建并显示button
+    var mybutton=document.createElement("input");
+    mybutton.value="确认";
+    mybutton.type="button";
+   // mybutton.onclick=show();
+    $("td111").appendChild(mybutton);
+    
+    //创建文本框
+    var mytext1=document.createElement("input");
+    mytext1.type="text";
+    mytext1.name="text1";     
+    mytext1.value=x[0].innerHTML;//获取每一行    
+    $("td1").appendChild(mytext1);
+   }
+   function $(id){
+   return document.getElementById(id);
+   }
+ 
+ </script>
+  </head>
+  
+  <body>
+    <h1>英雄排行榜</h1>
+    <table border="1" id="table1">
+    <tr><td>排名</td><td>姓名</td><td>外号</td><td>删除该英雄</td><td>修改该英雄</td></tr>
+    <tr><td >1</td><td id="td1">宋江</td><td id="td11">及时雨</td><td><a href="#" onclick="shanchu(this)">删除</a></td><td id="td111"><a id="a1" onclick="modify()"  href="#">修改</a></td></tr>
+    <tr><td>2</td><td>卢俊义</td><td>玉麒麟</td><td><a href="#" onclick="shanchu(this)">删除</a></td><td><a href="#">修改</a></td></tr>
+    <tr><td>3</td><td>公孙胜</td><td>入云龙</td><td><a href="#" onclick="shanchu(this)">删除</a></td><td><a href="#">修改</a></td></tr>
+    </table>
+    <h1>请输入新的好汉</h1>
+    编号：<input type="text" id="number"/><br/>
+    名字：<input type="text" id="username"/><br/>
+    外号：<input type="text" id="nickname"/><br/>
+    <input type="button" value="添加" onclick="addHero()"/>
+  </body>
+</html>
